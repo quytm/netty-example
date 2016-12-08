@@ -30,9 +30,13 @@ Source code: https://github.com/quytm/netty-example/tree/master/src/com/tmq/nett
 ### II.1. Http
 
 Source code: https://github.com/quytm/netty-example/tree/master/src/com/tmq/netty/http
+
+(tham khảo từ: https://github.com/netty/netty/tree/4.1/example/src/main/java/io/netty/example/http)
+
+
 #### II.1.1. Hello world
 
-- Tạo class HttpHelloWorldServerInitializer extend ChannelInitializer<SocketChannel>
+- Tạo class HttpHelloWorldServerInitializer extend ChannelInitializer\<SocketChannel\>
 	+ Truyền SslContext vào constructor
 	+ initChannel: pipeline.addLast(HttpHelloWorldServerHandler)
 - Tạo class HttpHelloWorldServerHandler extend ChannelInboundHandlerAdapter:
@@ -79,7 +83,7 @@ if (msg instanceof HttpRequest) {
 		+ handler: LoggingHandler
 		+ childHandler: class HttpUploadSererInittializer
 		+ bind().sync()
-- Class HttpUploadServerInitializer extends ChannelInitializer<SocketChannel>
+- Class HttpUploadServerInitializer extends ChannelInitializer\<SocketChannel\>
 	+ Truyền tham số SslContext vào Contructor
 	+ InitChannel: pipeline addLast: 
 		+ HttpRequestDecoder
@@ -87,7 +91,7 @@ if (msg instanceof HttpRequest) {
 		+ HttpContentCompressor
 		+ HttpUploadServerHandler
 
-- Class HttpUploadServerHandler extends SimpleChannelInboundHandler<HttpObject>:
+- Class HttpUploadServerHandler extends SimpleChannelInboundHandler\<HttpObject\>:
 	+ channelRead0(ctx, msg):
 		+ Lấy HttpRequest từ msg (cast) -> request
 		+ Có thể biết router đang ở đâu thông qua việc lấy uri: request.uri()
@@ -100,7 +104,7 @@ if (msg instanceof HttpRequest) {
 
 - Khởi tạo Uri để GET/POST tới server
 - Kiểm tra giao thức, cài đặt cổng (port)
-- Header lưu dưới dạng: List<Entry<String, String>>
+- Header lưu dưới dạng: List\<Entry\<String, String\>\>
 - Form GET:
 	+ Channel kết nối tới host, port
 	+ Sử dụng QueryStringEncoder, thêm các param -> chuyển QueryStringEncoder thành URI
@@ -115,7 +119,7 @@ if (msg instanceof HttpRequest) {
 - Form POST Multipart
 	+ ...
 
-- Class HttpUploadClientInitializer extends ChannelInitialzer<SocketChannel>:
+- Class HttpUploadClientInitializer extends ChannelInitialzer\<SocketChannel\>:
 	+ Truyền SslContext vào constructor
 	+ Pipeline addLast:
 		+ HttpClientCodec
@@ -123,6 +127,6 @@ if (msg instanceof HttpRequest) {
 		+ ChuckedWriteHandler
 		+ HttpUploadClientHandler
 
-- Class HttpUploadClientHandler extends SimpleChannelInboundHandler<HttpObject>: nhận response từ server:
+- Class HttpUploadClientHandler extends SimpleChannelInboundHandler\<HttpObject\>: nhận response từ server:
 	+ Cast msg sang response: HttpResponse
 	+ Cast msg sang chunk: HttpContent
