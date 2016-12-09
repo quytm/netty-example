@@ -11,6 +11,7 @@ import io.netty.util.CharsetUtil;
 
 public class HttpReqAPIClientHandler extends SimpleChannelInboundHandler<HttpObject> {
 
+    // Su dung de noi cac response bi chunk
     private StringBuffer responseString = new StringBuffer();
 
     @Override

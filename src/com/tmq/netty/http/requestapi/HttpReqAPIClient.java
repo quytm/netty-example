@@ -13,6 +13,26 @@ import java.net.URI;
 
 /**
  * Created by tmq on 09/12/2016.
+ *
+ * Vi du ve Request Server thong qua API co san
+ *
+ * Host: http://api-v2.uetf.me
+ * Port: 80
+ *
+ * API:
+ *      - Login:
+ *          + url: http://api-v2.uetf.me/login
+ *          + params:
+ *              email: String
+ *              password: String
+ *          + Account co san:
+ *              email: khoiln@vnu.edu.vn
+ *              password: 123456
+ *
+ *      - Logout:
+ *          + url: http://api-v2.uetf.me/logout
+ *          + headers:
+ *              authorization: String (la authorization nhan duoc sau khi Login thanh cong)
  */
 public class HttpReqAPIClient {
     private static final String BASE_URL = "http://api-v2.uetf.me";
@@ -27,8 +47,6 @@ public class HttpReqAPIClient {
         System.out.println("uri: Host: " + uriLogin.getHost());
         System.out.println("uri: Port: " + uriLogin.getPort());
 
-        String scheme = uriLogin.getScheme() == null ? "http" : uriLogin.getScheme();
-
         // Vi la http request nen cho ssl = null, neu https thi phai khoi tao cho no
         final SslContext sslCtx = null;
 
@@ -36,7 +54,6 @@ public class HttpReqAPIClient {
 
         try {
             Bootstrap b = new Bootstrap();
-            // Tam thoi, HttpUploadClientIntializer lay trong package upload (cho nhanh, vi khong khac nhau gi ca)
             b.group(group).channel(NioSocketChannel.class).handler(new HttpReqAPIClientInitializer(sslCtx));
 
             // http request: port = 80
